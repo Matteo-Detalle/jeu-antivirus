@@ -2,8 +2,10 @@
 pygame.init()
 
 pygame.display.set_caption("Anti-virus Game Menu")
-from jeu import Jeu
+
+from jeu import *
 from button import Button
+
 #mise en place des fps
 
 horloge = pygame.time.Clock()
@@ -15,6 +17,7 @@ background = pygame.image.load("assets/background.png")
 boutton_options_image = pygame.image.load("assets/Options.png")
 boutton_quitter_image = pygame.image.load("assets/Quitter.png")
 boutton_jouer_image = pygame.image.load("assets/Jouer.png")
+Plateau_image = pygame.image.load("assets/PlateauDeJeu.png")
 
 #paramètres de base
 
@@ -28,7 +31,7 @@ Jouer_button = Button(500,-50,boutton_jouer_image,1)
 
 while running:
 
-    screen.blit(background, (0,-100))
+    screen.blit(background, (0,0))
     horloge.tick(fps)
 
     for event in pygame.event.get():
@@ -37,7 +40,7 @@ while running:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_ESCAPE:
                 enJeu = False
     if enJeu == False:
         Options_button.draw(screen)
@@ -51,6 +54,8 @@ while running:
             ""
         if Jouer_button.pressed():
             enJeu = True
+    elif enJeu == True:
+        screen.blit(Plateau_image,(0,0))
         
     pygame.display.update()
 
