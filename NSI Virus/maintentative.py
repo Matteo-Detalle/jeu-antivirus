@@ -189,101 +189,63 @@ while running:
                     pygame.display.set_caption("Anti-virus Menu")
                     niveau1 , menu_jouer = False , True
                 if event.key == pygame.K_LEFT:
-                    if pièce_selectionnée == False:
-                        pass
+                    
+                    result = niveau1_class.mouvement_gauche(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id)
+                    print(result)
+
+                    if result == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau1 , menu_jouer = False , True
                     else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]-1)
-                            newx.append(i[1]-1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == True :
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]-1 , i[1]-1))
-
-                            if pièce_selectionnée == position_piece_diagonale:
-                                position_piece_diagonale = new_position
-                            elif pièce_selectionnée == position_piece_droite:
-                                position_piece_droite = new_position
-
+                        new_position = result
+                        print(new_position)
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position                       
+                        if new_position != None:
                             pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau1 , menu_jouer = False , True
-                
+                           
                 if event.key == pygame.K_RIGHT:
-                    if pièce_selectionnée == False:
-                        pass
+                    result = niveau1_class.mouvement_droite(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id)
+                    
+                    if result == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau1 , menu_jouer = False , True
                     else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]+1)
-                            newx.append(i[1]+1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == True:
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]+1 , i[1]+1))
-                            
-                            if pièce_selectionnée == position_piece_diagonale:
-                                position_piece_diagonale = new_position
-                            elif pièce_selectionnée == position_piece_droite:
-                                position_piece_droite = new_position
-                            
+                        new_position = result
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position                       
+                        if new_position != None:
                             pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau1 , menu_jouer = False , True
                 
                 if event.key == pygame.K_UP:
-                    if pièce_selectionnée == False:
-                        pass
+                    result = niveau1_class.mouvement_up(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id)
+                    
+                    if result == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau1 , menu_jouer = False , True
                     else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]-1)
-                            newx.append(i[1]+1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == True:
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]-1 , i[1]+1))
-                            
-                            if pièce_selectionnée == position_piece_diagonale:
-                                position_piece_diagonale = new_position
-                            elif pièce_selectionnée == position_piece_droite:
-                                position_piece_droite = new_position
-                            
+                        new_position = result
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position                       
+                        if new_position != None:
                             pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau1 , menu_jouer = False , True
                 
                 if event.key == pygame.K_DOWN:
-                    if pièce_selectionnée == False:
-                        pass
-                    else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]+1)
-                            newx.append(i[1]-1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == True:
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]+1 , i[1]-1))
-                            
-                            if pièce_selectionnée == position_piece_diagonale:
-                                position_piece_diagonale = new_position
-                            elif pièce_selectionnée == position_piece_droite:
-                                position_piece_droite = new_position
-                                
-                            pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau1 , menu_jouer = False , True
+                    result = niveau1_class.mouvement_down(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id)
 
+                    if result == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau1 , menu_jouer = False , True
+                    else:
+                        new_position = result
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position                       
+                        if new_position != None:
+                            pièce_selectionnée = new_position
 
             if event.type == pygame.MOUSEBUTTONDOWN:  
                 if event.button == 1:  #vérifie si clique gauche
