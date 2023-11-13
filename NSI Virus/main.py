@@ -24,9 +24,11 @@ boutton_regle_image = pygame.image.load("assets/Regle.png")
 boutton_quitter_image = pygame.image.load("assets/Quitter.png")
 boutton_jouer_image = pygame.image.load("assets/Jouer.png")
 
-Regle_button = Button(500,200,boutton_regle_image,1)
-Quitter_button = Button(500,550,boutton_quitter_image,1)
-Jouer_button = Button(500,-150,boutton_jouer_image,1)
+fleche_up_image = pygame.image.load("assets/fleche_up.png")
+
+Regle_button = Button(600,300,boutton_regle_image,1)
+Quitter_button = Button(600,550,boutton_quitter_image,1)
+Jouer_button = Button(600,50,boutton_jouer_image,1)
 
 niveau1_image = pygame.image.load("assets/niveau1.png")
 niveau2_image = pygame.image.load("assets/niveau2.png")
@@ -47,6 +49,8 @@ niveau6_button = Button(600,400,niveau6_image,1)
 niveau7_button = Button(750,400,niveau7_image,1)
 niveau8_button = Button(900,400,niveau8_image,1)
 niveau9_button = Button(675,600,niveau9_image,1)
+
+fleche_up_button = Button(900,700,fleche_up_image,1)
 
 Plateau_image = pygame.image.load("assets/PlateauDeJeu.png")
 
@@ -178,6 +182,8 @@ while running:
         screen.blit(piece_non_jouable_image,(570,375)) #espace de 210 entre 2 espaces jouables donc 105 pour espace de 1
         screen.blit(piece_non_jouable_image,(990,375))
         screen.blit(piece_selectionnée_text,(70,500))
+        
+        fleche_up_button.draw(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
