@@ -97,7 +97,7 @@ class Niveau(Plateau):
     def emplacement(self,emplacement):
         return emplacement
     
-    def mouvement(self,newy,newx,oldy,oldx,pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id):
+    def mouvement(self,newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id):
             if self.mouvement_possible(newy,newx,liste_id,pièce_id) == True:
                 self.update_plateau(newy,newx,pièce_id,oldy,oldx)
                 coordx , coordy = (newx[0]*105)+465 , (newy[0]*105)+60

@@ -24,7 +24,7 @@ boutton_regle_image = pygame.image.load("assets/Regle.png")
 boutton_quitter_image = pygame.image.load("assets/Quitter.png")
 boutton_jouer_image = pygame.image.load("assets/Jouer.png")
 
-fleche_up_image = pygame.image.load("assets/fleche_up.png")
+fleche_up_image = pygame.image.load("assets/fleche_upleft.png")
 
 Regle_button = Button(600,300,boutton_regle_image,1)
 Quitter_button = Button(600,550,boutton_quitter_image,1)
