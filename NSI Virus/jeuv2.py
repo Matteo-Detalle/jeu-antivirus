@@ -18,7 +18,7 @@ class Plateau:
             for y,x in zip(tabY,tabX):
                 if y <= -1 or x <= -1 or y >= 7 or x >= 7:
                     return False
-                elif y == 0 and x == 0:
+                elif y == 0 and x == 0: #veut dire que le point de la pièce est actuellement à la case 0,0
                     if pièce_id == 2:
                         return "GG"
                     else:
@@ -59,16 +59,49 @@ class Niveau(Plateau):
     def emplacement(self,emplacement):
         return emplacement
     
-    def mouvement(self,newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id):
-            if self.mouvement_possible(newy,newx,liste_id,pièce_id) == True:
-                self.update_plateau(newy,newx,pièce_id,oldy,oldx)
-                coordx , coordy = (newx[0]*105)+465 , (newy[0]*105)+60
-                rect_pièce_selectionnée.topleft = (coordx,coordy)
-                return True
-            elif self.mouvement_possible(newy,newx,liste_id,pièce_id) == "GG":
-                return "GG"
-            elif self.mouvement_possible(newy,newx,liste_id,pièce_id) == False:
-                return False
+    def mouvement(self, pièce_selectionnée, rect_pièce_selectionnée, pièce_id, liste_id, direction):
+        if not pièce_selectionnée:
+            return False
+        tabX, tabY, oldy, oldx = [], [], [], []
+        for i in pièce_selectionnée:
+            oldy.append(i[0])
+            oldx.append(i[1])
+            if direction == "upleft":
+                tabY.append(i[0] - 1)
+                tabX.append(i[1] - 1)
+            elif direction == "upright":
+                tabY.append(i[0] - 1)
+                tabX.append(i[1] + 1)
+            elif direction == "downleft":
+                tabY.append(i[0] + 1)
+                tabX.append(i[1] - 1)
+            elif direction == "downright":
+                tabY.append(i[0] + 1)
+                tabX.append(i[1] + 1)
+
+        if self.mouvement_possible(tabY, tabX, liste_id, pièce_id) == True:
+            self.update_plateau(tabY, tabX, pièce_id, oldy, oldx)
+            coordx, coordy = (tabX[0] * 105) + 465, (tabY[0] * 105) + 60
+            rect_pièce_selectionnée.topleft = (coordx, coordy)
+
+            new_position = []
+            for i in pièce_selectionnée:
+                if direction == "upleft":
+                    new_position.append((i[0] - 1, i[1] - 1))
+                elif direction == "upright":
+                    new_position.append((i[0] - 1, i[1] + 1))
+                elif direction == "downleft":
+                    new_position.append((i[0] + 1, i[1] - 1))
+                elif direction == "downright":
+                    new_position.append((i[0] + 1, i[1] + 1))
+
+            return new_position
+
+        elif self.mouvement_possible(tabY, tabX, liste_id, pièce_id) == "GG":
+            return "GG"
+        elif self.mouvement_possible(tabY, tabX, liste_id, pièce_id) == False:
+            return False
+
     
 
 class Image:

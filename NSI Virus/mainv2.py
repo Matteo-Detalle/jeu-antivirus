@@ -13,7 +13,6 @@ running = True
 menu1 = True
 menu_explication = False
 menu_jouer = False
-niveau_jouer = False
 niveau_actuel = 0
 
 niveau1_class, niveau2_class, niveau3_class, niveau4_class, niveau5_class, niveau6_class, niveau7_class, niveau8_class, niveau9_class = Niveau() , Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau()
@@ -72,8 +71,8 @@ def menu_explication_fonction():
     global menu1, menu_explication , running
 
     regle_texte = font.render("Objectif : mettre la pièce rouge dans le trou en haut à gauche ",True,(255,255,255))
-    regle_texte2 = font.render("Pour ce faire , vous pourrez selectionner une pièce et la bouger à l'aide des flèches directionnels du clavier ",True,(255,255,255))
-    regle_texte3 = font.render("ou bien en clickant sur les boutons à l'écran",True,(255,255,255))
+    regle_texte2 = font.render("Pour ce faire , vous pourrez selectionner une pièce avec la souris et la bouger à l'aide des touches 'a' 'z' 'q' 's' ",True,(255,255,255))
+    regle_texte3 = font.render("prenant la direction respective de chaque touche",True,(255,255,255))
     screen.blit(regle_texte,(70,200))
     screen.blit(regle_texte2,(150,250))
     screen.blit(regle_texte3,(150,300))
@@ -91,7 +90,7 @@ def menu_explication_fonction():
                 menu_explication , menu1 = False , True
 
 def menu_jouer_fonction():
-    global menu_jouer, niveau_actuel, running , menu1 , niveau_jouer
+    global menu_jouer, niveau_actuel, running , menu1
 
     niveau1_button.draw(screen)
     niveau2_button.draw(screen)
@@ -104,23 +103,23 @@ def menu_jouer_fonction():
     niveau9_button.draw(screen)
 
     if niveau1_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 1
+        menu_jouer,niveau_actuel = False, 1
     if niveau2_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 2
+        menu_jouer,niveau_actuel = False, 2
     if niveau3_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 3
+        menu_jouer,niveau_actuel = False, 3
     if niveau4_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 4
+        menu_jouer,niveau_actuel = False, 4
     if niveau5_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 5
+        menu_jouer,niveau_actuel = False, 5
     if niveau6_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 6
+        menu_jouer,niveau_actuel = False, 6
     if niveau7_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 7
+        menu_jouer,niveau_actuel = False, 7
     if niveau8_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 8
+        menu_jouer,niveau_actuel = False, 8
     if niveau9_button.pressed():
-        menu_jouer,niveau_jouer,niveau_actuel = False , True , 9
+        menu_jouer,niveau_actuel = False, 9
         
     screen.blit(echap_text,(500,800))
 
@@ -144,212 +143,6 @@ while running:
         menu_explication_fonction()
     elif menu_jouer == True:
         menu_jouer_fonction()
-    elif niveau_jouer == True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.display.set_caption("Anti-virus Menu")
-                    niveau_actuel, niveau_jouer , menu_jouer, niveau1_first_launch , niveau2_first_launch , niveau3_first_launch = 0 , False ,True , True , True , True
-                if event.key == pygame.K_LEFT:
-                    if pièce_selectionnée == False:
-                        pass
-                    else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]-1)
-                            newx.append(i[1]-1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == True :
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]-1 , i[1]-1))
-
-                            if niveau_actuel == 1:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_droite:
-                                    position_piece_droite = new_position
-                            if niveau_actuel == 2:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_violette:
-                                    position_piece_violette = new_position
-                            if niveau_actuel == 3:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_verte:
-                                    position_piece_verte = new_position
-                                elif pièce_selectionnée == position_piece_rose:
-                                    position_piece_rose = new_position
-
-                            pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau_actuel, niveau_jouer , menu_jouer, niveau1_first_launch , niveau2_first_launch , niveau3_first_launch = 0 , False ,True , True , True , True
-                
-                if event.key == pygame.K_RIGHT:
-                    if pièce_selectionnée == False:
-                        pass
-                    else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]+1)
-                            newx.append(i[1]+1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == True:
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]+1 , i[1]+1))
-                            
-                            if niveau_actuel == 1:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_droite:
-                                    position_piece_droite = new_position
-                            if niveau_actuel == 2:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_violette:
-                                    position_piece_violette = new_position
-                            if niveau_actuel == 3:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_verte:
-                                    position_piece_verte = new_position
-                                elif pièce_selectionnée == position_piece_rose:
-                                    position_piece_rose = new_position
-                            
-                            pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau_actuel, niveau_jouer , menu_jouer, niveau1_first_launch , niveau2_first_launch , niveau3_first_launch = 0 , False ,True , True , True , True 
-                
-                if event.key == pygame.K_UP:
-                    if pièce_selectionnée == False:
-                        pass
-                    else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]-1)
-                            newx.append(i[1]+1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == True:
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]-1 , i[1]+1))
-                            
-                            if niveau_actuel == 1:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_droite:
-                                    position_piece_droite = new_position
-                            if niveau_actuel == 2:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_violette:
-                                    position_piece_violette = new_position
-                            if niveau_actuel == 3:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_verte:
-                                    position_piece_verte = new_position
-                                elif pièce_selectionnée == position_piece_rose:
-                                    position_piece_rose = new_position
-                            
-                            pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau_actuel, niveau_jouer , menu_jouer, niveau1_first_launch , niveau2_first_launch , niveau3_first_launch = 0 , False ,True , True , True , True 
-                
-                if event.key == pygame.K_DOWN:
-                    if pièce_selectionnée == False:
-                        pass
-                    else:
-                        oldx , oldy , newx , newy = [],[],[],[]
-                        for i in pièce_selectionnée:
-                            oldy.append(i[0])
-                            oldx.append(i[1])
-                            newy.append(i[0]+1)
-                            newx.append(i[1]-1)
-                        if niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == True:
-                            new_position = []
-                            for i in pièce_selectionnée:
-                                new_position.append((i[0]+1 , i[1]-1))
-                            
-                            if niveau_actuel == 1:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_droite:
-                                    position_piece_droite = new_position
-                            if niveau_actuel == 2:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_violette:
-                                    position_piece_violette = new_position
-                            if niveau_actuel == 3:
-                                if pièce_selectionnée == position_piece_diagonale:
-                                    position_piece_diagonale = new_position
-                                elif pièce_selectionnée == position_piece_verte:
-                                    position_piece_verte = new_position
-                                elif pièce_selectionnée == position_piece_rose:
-                                    position_piece_rose = new_position
-                                
-                            pièce_selectionnée = new_position
-                        elif niveau1_class.mouvement(newy,newx,oldy,oldx,rect_pièce_selectionnée,pièce_id,liste_id) == "GG" and pièce_selectionnée == position_piece_diagonale:
-                            niveau_actuel, niveau_jouer , menu_jouer, niveau1_first_launch , niveau2_first_launch , niveau3_first_launch = 0 , False ,True , True , True , True        
-            if event.type == pygame.MOUSEBUTTONDOWN:  
-                if event.button == 1:  #vérifie si clique gauche
-                    pos = pygame.mouse.get_pos() 
-
-                    #vérifie sur quelle pièce le clique a été fait
-                    if niveau_actuel == 1:
-                        if rect_piece_droite.collidepoint(pos): 
-                            pièce_selectionnée = position_piece_droite
-                            liste_id = [2,3,4,5,6,7,8,9]
-                            pièce_id = 3
-                            liste_id.remove(3)
-                            rect_pièce_selectionnée = rect_piece_droite
-                            piece_selectionnée_text = piece_rose_text
-
-                    if niveau_actuel == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 :
-                        if rect_piece_diagonale.collidepoint(pos):
-                            pièce_selectionnée = position_piece_diagonale
-                            liste_id = [2,3,4,5,6,7,8,9]
-                            pièce_id = 2
-                            liste_id.remove(2)
-                            rect_pièce_selectionnée = rect_piece_diagonale
-                            piece_selectionnée_text = piece_rouge_text
-                    
-                    if niveau_actuel == 2:
-                        if rect_piece_violette.collidepoint(pos): 
-                            pièce_selectionnée = position_piece_violette
-                            liste_id = [2,3,4,5,6,7,8,9]
-                            pièce_id = 4
-                            liste_id.remove(4)
-                            rect_pièce_selectionnée = rect_piece_violette
-                            piece_selectionnée_text = piece_violette_text
-                    
-                    if niveau_actuel == 3:
-                        if rect_piece_verte.collidepoint(pos): 
-                            pièce_selectionnée = position_piece_verte
-                            liste_id = [2,3,4,5,6,7,8,9]
-                            pièce_id = 5
-                            liste_id.remove(3)
-                            rect_pièce_selectionnée = rect_piece_verte
-                            piece_selectionnée_text = piece_verte_text
-                    
-                    if niveau_actuel == 3:
-                        if rect_piece_rose.collidepoint(pos):
-                            pièce_selectionnée = position_piece_rose
-                            liste_id = [2,3,4,5,6,7,8,9]
-                            pièce_id = 6
-                            liste_id.remove(4)
-                            rect_pièce_selectionnée = rect_piece_rose
-                            piece_selectionnée_text = piece_rose_text
 
     if niveau_actuel == 1:
 
@@ -378,7 +171,7 @@ while running:
             pièce_selectionnée = False
 
             niveau1_first_launch = False
-        
+
         screen.blit(images.piece_diagonale_image,rect_piece_diagonale.topleft)
         screen.blit(images.piece_droite_image, rect_piece_droite.topleft)
         screen.blit(images.piece_non_jouable_image,(570,375)) #espace de 210 entre 2 espaces jouables donc 105 pour espace de 1
@@ -389,8 +182,91 @@ while running:
         fleche_upright_button.draw(screen)
         fleche_downleft_button.draw(screen)
         fleche_downright_button.draw(screen)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+
+                if event.key == pygame.K_a:
+                    if niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft") == False:
+                        pass
+                    else:
+                        new_position = niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_s:
+                    if niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright") == False:
+                        pass
+                    else:
+                        new_position = niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_z:
+                    if niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright") == False:
+                        pass
+                    else:
+                        new_position = niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_q:
+                    if niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft") == False:
+                        pass
+                    else:
+                        new_position = niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_droite:
+                            position_piece_droite = new_position
+                        pièce_selectionnée = new_position
+
+            if event.type == pygame.MOUSEBUTTONDOWN:  
+                if event.button == 1:  #vérifie si clique gauche
+                    pos = pygame.mouse.get_pos() 
+
+                    #vérifie sur quelle pièce le clique a été fait
+                    if rect_piece_droite.collidepoint(pos): 
+                        pièce_selectionnée = position_piece_droite
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 3
+                        liste_id.remove(3)
+                        rect_pièce_selectionnée = rect_piece_droite
+                        piece_selectionnée_text = piece_rose_text
+
+                    elif rect_piece_diagonale.collidepoint(pos):
+                        pièce_selectionnée = position_piece_diagonale
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 2
+                        liste_id.remove(2)
+                        rect_pièce_selectionnée = rect_piece_diagonale
+                        piece_selectionnée_text = piece_rouge_text
     
-    if niveau_actuel == 2:
+    elif niveau_actuel == 2:
         screen.blit(images.Plateau_image,(0,0))
 
         if niveau2_first_launch == True:
@@ -422,5 +298,305 @@ while running:
         screen.blit(images.piece_non_jouable_image,(465,480)) 
         screen.blit(images.piece_non_jouable_image,(885,270))
         screen.blit(piece_selectionnée_text,(70,500))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
 
+                if event.key == pygame.K_a:
+                    if niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft") == False:
+                        pass
+                    else:
+                        new_position = niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_violette:
+                            position_piece_violette = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_s:
+                    if niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright") == False:
+                        pass
+                    else:
+                        new_position = niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_violette:
+                            position_piece_violette = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_z:
+                    if niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright") == False:
+                        pass
+                    else:
+                        new_position = niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_violette:
+                            position_piece_violette = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_q:
+                    if niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft") == False:
+                        pass
+                    else:
+                        new_position = niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_violette:
+                            position_piece_violette = new_position
+                        pièce_selectionnée = new_position
+
+            if event.type == pygame.MOUSEBUTTONDOWN:  
+                if event.button == 1:  #vérifie si clique gauche
+                    pos = pygame.mouse.get_pos() 
+
+                    #vérifie sur quelle pièce le clique a été fait
+                    if rect_piece_violette.collidepoint(pos): 
+                        pièce_selectionnée = position_piece_violette
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 3
+                        liste_id.remove(3)
+                        rect_pièce_selectionnée = rect_piece_violette
+                        piece_selectionnée_text = piece_violette_text
+
+                    elif rect_piece_diagonale.collidepoint(pos):
+                        pièce_selectionnée = position_piece_diagonale
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 2
+                        liste_id.remove(2)
+                        rect_pièce_selectionnée = rect_piece_diagonale
+                        piece_selectionnée_text = piece_rouge_text
+
+    elif niveau_actuel == 3:
+        screen.blit(images.Plateau_image,(0,0))
+
+        if niveau3_first_launch == True:
+            position_piece_non_jouable1 = niveau3_class.emplacement((4,0)) #emplacement d'origine (y,x)
+            position_piece_non_jouable2 = niveau3_class.emplacement((3,3))
+            position_piece_diagonale = niveau3_class.emplacement([(0,4),(1,5)])
+            position_piece_verte = niveau3_class.emplacement([(2,2),(2,4)])
+            position_piece_rose = niveau3_class.emplacement([(0,6),(2,6)])
+
+            rect_piece_verte = images.piece_verte_image.get_rect()
+            rect_piece_verte.topleft = (675,270) #465 + x*105 et 60 + y*105 du point en haut à gauche
+
+            rect_piece_diagonale = images.piece_diagonale_image.get_rect()
+            rect_piece_diagonale.topleft = (885,60)
+
+            rect_piece_rose = images.piece_rose_image.get_rect()
+            rect_piece_rose.topleft = (1095,60)
+            
+            niveau3_class.update_plateau([0,1],[4,5],2,[99,99],[99,99]) #initialisation de la pièce diagonale dans la plateau
+            niveau3_class.update_plateau([2,2],[2,4],3,[99,99],[99,99]) #initialisation de la pièce verte dans le plateau
+            niveau3_class.update_plateau([0,2],[6,6],4,[99,99],[99,99]) #initialisation de la pièce rose dans le plateau
+            niveau3_class.update_plateau([4,3],[0,3],1,[99,99],[99,99]) #initialisation des pièces non jouables dans le plateau
+
+            piece_selectionnée_text = font.render("Pas de Pièce sélectionnée",True,(255,255,255))
+            piece_rose_text = font.render("Pièce rose sélectionnée",True,(255,255,255))
+            piece_rouge_text = font.render("Pièce rouge sélectionnée",True,(255,255,255))
+            piece_verte_text = font.render("Pièce verte sélectionnée",True,(255,255,255))
+
+            pièce_selectionnée = False
+
+            niveau3_first_launch = False
+        
+        screen.blit(images.piece_diagonale_image,rect_piece_diagonale.topleft)
+        screen.blit(images.piece_verte_image, rect_piece_verte.topleft)
+        screen.blit(images.piece_rose_image, rect_piece_rose.topleft)
+        screen.blit(images.piece_non_jouable_image,(465,480)) 
+        screen.blit(images.piece_non_jouable_image,(780,375))
+        screen.blit(piece_selectionnée_text,(70,500))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+
+                if event.key == pygame.K_a:
+                    if niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft") == False:
+                        pass
+                    else:
+                        new_position = niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upleft")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_verte:
+                            position_piece_verte = new_position
+                        elif pièce_selectionnée == position_piece_rose:
+                            position_piece_rose = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_s:
+                    if niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright") == False:
+                        pass
+                    else:
+                        new_position = niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downright")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_verte:
+                            position_piece_verte = new_position
+                        elif pièce_selectionnée == position_piece_rose:
+                            position_piece_rose = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_z:
+                    if niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright") == False:
+                        pass
+                    else:
+                        new_position = niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"upright")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_verte:
+                            position_piece_verte = new_position
+                        elif pièce_selectionnée == position_piece_rose:
+                            position_piece_rose = new_position
+                        pièce_selectionnée = new_position
+
+                if event.key == pygame.K_q:
+                    if niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft") == "GG" and pièce_selectionnée == position_piece_diagonale:
+                        niveau_actuel , menu_jouer = 0 , True
+                    elif niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft") == False:
+                        pass
+                    else:
+                        new_position = niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,"downleft")
+                        if pièce_selectionnée == position_piece_diagonale:
+                            position_piece_diagonale = new_position
+                        elif pièce_selectionnée == position_piece_verte:
+                            position_piece_verte = new_position
+                        elif pièce_selectionnée == position_piece_rose:
+                            position_piece_rose = new_position
+                        pièce_selectionnée = new_position
+
+            if event.type == pygame.MOUSEBUTTONDOWN:  
+                if event.button == 1:  #vérifie si clique gauche
+                    pos = pygame.mouse.get_pos() 
+
+                    #vérifie sur quelle pièce le clique a été fait
+                    if rect_piece_verte.collidepoint(pos): 
+                        pièce_selectionnée = position_piece_verte
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 3
+                        liste_id.remove(3)
+                        rect_pièce_selectionnée = rect_piece_verte
+                        piece_selectionnée_text = piece_verte_text
+
+                    elif rect_piece_diagonale.collidepoint(pos):
+                        pièce_selectionnée = position_piece_diagonale
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 2
+                        liste_id.remove(2)
+                        rect_pièce_selectionnée = rect_piece_diagonale
+                        piece_selectionnée_text = piece_rouge_text
+                    
+                    elif rect_piece_rose.collidepoint(pos):
+                        pièce_selectionnée = position_piece_rose
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 4
+                        liste_id.remove(4)
+                        rect_pièce_selectionnée = rect_piece_rose
+                        piece_selectionnée_text = piece_rose_text
+    
+    elif niveau_actuel == 4:
+        screen.blit(images.Plateau_image,(0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+    
+    elif niveau_actuel == 5:
+        screen.blit(images.Plateau_image,(0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+    
+    elif niveau_actuel == 6:
+        screen.blit(images.Plateau_image,(0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+    
+    elif niveau_actuel == 7:
+        screen.blit(images.Plateau_image,(0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+    
+    elif niveau_actuel == 8:
+        screen.blit(images.Plateau_image,(0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+    
+    elif niveau_actuel == 9:
+        screen.blit(images.Plateau_image,(0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer = 0 , True
+        
     pygame.display.update()
