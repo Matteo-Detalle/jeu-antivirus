@@ -135,6 +135,8 @@ class Image:
         self.piece_violette_image = pygame.image.load("assets/violet.png")
         self.piece_rose_image = pygame.image.load("assets/rose.png")
         self.piece_verte_image = pygame.image.load("assets/verte.png")
+
+        self.recommencer_image = pygame.image.load("assets/Recommencer.png")
         
      
 

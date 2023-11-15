@@ -38,6 +38,8 @@ fleche_upright_button = Button(1350,650,images.fleche_upright_image,1)
 fleche_downleft_button = Button(1250,750,images.fleche_downleft_image,1)
 fleche_downright_button = Button(1350,750,images.fleche_downright_image,1)
 
+recommencer_button = Button(1200,150,images.recommencer_image,1)
+
 niveau1_first_launch = True
 niveau2_first_launch = True
 niveau3_first_launch = True
@@ -133,10 +135,10 @@ def menu_jouer_fonction():
                 pygame.display.set_caption("Anti-virus Menu")
                 menu_jouer , menu1 = False , True
 def niveau1_fonction(direction):
-    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_droite , niveau_actuel , menu_jouer
+    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_droite , niveau_actuel , menu_jouer , niveau1_first_launch
 
     if niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == "GG" and pièce_selectionnée == position_piece_diagonale:
-        niveau_actuel , menu_jouer = 0 , True
+        niveau_actuel , menu_jouer, niveau1_first_launch = 0 , True , True
     elif niveau1_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == False:
         pass
     else:
@@ -148,10 +150,10 @@ def niveau1_fonction(direction):
         pièce_selectionnée = new_position
 
 def niveau2_fonction(direction):
-    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_violette , niveau_actuel , menu_jouer
+    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_violette , niveau_actuel , menu_jouer , niveau2_first_launch
 
     if niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == "GG" and pièce_selectionnée == position_piece_diagonale:
-        niveau_actuel , menu_jouer = 0 , True
+        niveau_actuel , menu_jouer,  niveau2_first_launch = 0 , True , True
     elif niveau2_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == False:
         pass
     else:
@@ -163,10 +165,10 @@ def niveau2_fonction(direction):
         pièce_selectionnée = new_position
 
 def niveau3_fonction(direction):
-    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_verte , position_piece_rose , niveau_actuel , menu_jouer
+    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_verte , position_piece_rose , niveau_actuel , menu_jouer ,  niveau3_first_launch
 
     if niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == "GG" and pièce_selectionnée == position_piece_diagonale:
-        niveau_actuel , menu_jouer = 0 , True
+        niveau_actuel , menu_jouer,  niveau3_first_launch = 0 , True , True
     elif niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == False:
         pass
     else:
@@ -195,6 +197,7 @@ while running:
         screen.blit(images.Plateau_image,(0,0))
 
         if niveau1_first_launch == True:
+            niveau1_class.plateau = [[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0]]
             position_piece_non_jouable1 = niveau1_class.emplacement((3,1)) #emplacement d'origine
             position_piece_non_jouable2 = niveau1_class.emplacement((3,5))
             position_piece_diagonale = niveau1_class.emplacement([(1,5),(2,6)])
@@ -240,6 +243,10 @@ while running:
             niveau1_fonction("downleft")
         if fleche_downright_button.pressed():
             niveau1_fonction("downright")
+
+        recommencer_button.draw(screen)
+        if recommencer_button.pressed():
+            niveau1_first_launch = True
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -285,6 +292,7 @@ while running:
         screen.blit(images.Plateau_image,(0,0))
 
         if niveau2_first_launch == True:
+            niveau2_class.plateau = [[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0]]
             position_piece_non_jouable1 = niveau2_class.emplacement((2,4)) #emplacement d'origine
             position_piece_non_jouable2 = niveau2_class.emplacement((4,0))
             position_piece_diagonale = niveau2_class.emplacement([(3,5),(4,6)])
@@ -331,6 +339,10 @@ while running:
         if fleche_downright_button.pressed():
             niveau2_fonction("downright")
         
+        recommencer_button.draw(screen)
+        if recommencer_button.pressed():
+            niveau2_first_launch = True
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -375,6 +387,7 @@ while running:
         screen.blit(images.Plateau_image,(0,0))
 
         if niveau3_first_launch == True:
+            niveau3_class.plateau = [[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0]]
             position_piece_non_jouable1 = niveau3_class.emplacement((4,0)) #emplacement d'origine (y,x)
             position_piece_non_jouable2 = niveau3_class.emplacement((3,3))
             position_piece_diagonale = niveau3_class.emplacement([(0,4),(1,5)])
@@ -427,6 +440,10 @@ while running:
             niveau3_fonction("downleft")
         if fleche_downright_button.pressed():
             niveau3_fonction("downright")
+        
+        recommencer_button.draw(screen)
+        if recommencer_button.pressed():
+            niveau3_first_launch = True
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
