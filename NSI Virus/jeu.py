@@ -135,6 +135,8 @@ class Image:
         self.piece_violette_image = pygame.image.load("assets/violet.png")
         self.piece_rose_image = pygame.image.load("assets/rose.png")
         self.piece_verte_image = pygame.image.load("assets/verte.png")
+        self.piece_bleu_image = pygame.image.load("assets/bleu.png")
+        self.piece_violette2_image = pygame.image.load("assets/violet2.png")
 
         self.recommencer_image = pygame.image.load("assets/Recommencer.png")
         
@@ -151,12 +153,10 @@ class Button:
 
 	def pressed(self):
 		action = False
-		#get mouse position
 		pos = pygame.mouse.get_pos()
 
-		#check mouseover and clicked conditions
 		if self.rect.collidepoint(pos):
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False: #vérifie l'état du clique et que c'est bien que le clique gauche
 				self.clicked = True
 				action = True
 				
