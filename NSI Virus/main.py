@@ -276,7 +276,7 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.display.set_caption("Anti-virus Menu")
-                    niveau_actuel , menu_jouer = 0 , True
+                    niveau_actuel , menu_jouer , niveau1_first_launch = 0 , True , True
 
                 if event.key == pygame.K_a:
                     niveau1_fonction("upleft")
@@ -371,7 +371,7 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.display.set_caption("Anti-virus Menu")
-                    niveau_actuel , menu_jouer = 0 , True
+                    niveau_actuel , menu_jouer , niveau2_first_launch = 0 , True , True
 
                 if event.key == pygame.K_a:
                     niveau2_fonction("upleft")
@@ -473,7 +473,7 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.display.set_caption("Anti-virus Menu")
-                    niveau_actuel , menu_jouer = 0 , True
+                    niveau_actuel , menu_jouer , niveau3_first_launch = 0 , True , True
 
                 if event.key == pygame.K_a:
                     niveau3_fonction("upleft")
@@ -585,7 +585,7 @@ while running:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.display.set_caption("Anti-virus Menu")
-                    niveau_actuel , menu_jouer = 0 , True
+                    niveau_actuel , menu_jouer , niveau4_first_launch = 0 , True , True
                 
                 if event.key == pygame.K_a:
                     niveau4_fonction("upleft")
