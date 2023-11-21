@@ -166,7 +166,7 @@ def niveau2_fonction(direction):
         pièce_selectionnée = new_position
 
 def niveau3_fonction(direction):
-    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_verte , position_piece_rose , niveau_actuel , menu_jouer ,  niveau3_first_launch
+    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_verte , position_piece_rose, niveau_actuel , menu_jouer ,  niveau3_first_launch
 
     if niveau3_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == "GG" and pièce_selectionnée == position_piece_diagonale:
         niveau_actuel , menu_jouer,  niveau3_first_launch = 0 , True , True
@@ -184,11 +184,10 @@ def niveau3_fonction(direction):
 
 def niveau4_fonction(direction):
     global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_violette2 , position_piece_rose ,position_piece_bleu , niveau_actuel , menu_jouer ,  niveau4_first_launch
-
     if niveau4_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == "GG" and pièce_selectionnée == position_piece_diagonale:
         niveau_actuel , menu_jouer,  niveau4_first_launch = 0 , True , True
     elif niveau4_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == False:
-        pass
+        pass    
     else:
         new_position = niveau4_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction)
         if pièce_selectionnée == position_piece_diagonale:

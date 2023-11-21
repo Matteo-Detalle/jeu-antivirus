@@ -94,7 +94,7 @@ class Niveau(Plateau):
                     new_position.append((i[0] + 1, i[1] - 1))
                 elif direction == "downright":
                     new_position.append((i[0] + 1, i[1] + 1))
-
+            
             return new_position
 
         elif self.mouvement_possible(tabY, tabX, liste_id, pièce_id) == "GG":
