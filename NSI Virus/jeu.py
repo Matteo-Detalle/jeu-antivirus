@@ -15,39 +15,63 @@ class Plateau:
                         [0,1,0,1,0,1,0]]
         
     def mouvement_possible(self,tabY,tabX,liste_id,pièce_id): #y et x les tableaux des coordonées de chaque point de la pièce
+            """
+            vérifie si la destination vers où bouger est possible
+
+            -------------------------------------------------------------------------------------------------------------------------
+
+            paramètres : - tableau : - TabY , tabX ; tableaux contenants les coordonnées des points de la pièce vers où le déplacement veut se faire
+                         - tableau : - liste_id : tableau contenant chaque id présent dans le plateau 
+                         - int : - pièce_id ; id (chiffre de 2 à 10) permettant de créer des pièces uniques  
+            """
             for y,x in zip(tabY,tabX):
-                if y <= -1 or x <= -1 or y >= 7 or x >= 7:
+                if y <= -1 or x <= -1 or y >= 7 or x >= 7: #vérifie que le déplacement ne dépasse pas les limites du plateau
                     return False
-                elif y == 0 and x == 0: #veut dire que le point de la pièce est actuellement à la case 0,0
-                    if pièce_id == 2:
+                elif y == 0 and x == 0: #veut dire que le point de la pièce est actuellement à la case 0,0 (case pour gagner)
+                    if pièce_id == 2: #id de la pièce rouge (celle qui permet de gagner
                         return "GG"
                     else:
                         pass
-                elif self.plateau[y][x] == 1 :
+                elif self.plateau[y][x] == 1 : #case non jouable
                     return False
-                elif self.plateau[y][x] in liste_id:
+                elif self.plateau[y][x] in liste_id: #autre pièce est déjà présente à l'emplacement
                     return False
                 else:
                     pass
             return True
     
     def update_plateau(self,tabY,tabX,id,tabOldY,tabOldX):
-            for y,x,oldY,oldX in zip(tabY,tabX,tabOldY,tabOldX): #zip permettant la répartition de chaque élément
-                self.plateau[y][x] = id
+            """
+            met à jour le plateau avec les id et les positions de chaque pièces
 
-                if oldY == 99 and oldX == 99: #permet l'initialisation des pièces par défaut 
+            -------------------------------------------------------------------------------------------------------------------------
+
+            paramètres : - tableau : - TabY , tabX , tabOldY , tabOldX ; tableaux contenants les nouvelles coordonnées des points de la pièce et les anciennes
+                         - int : - id ; id (chiffre de 2 à 10) permettant de créer des pièces uniques  
+            """
+            for oldY,oldX in zip(tabOldY,tabOldX):
+                if oldY == 99 and oldX == 99: #permet l'initialisation des pièces au démarage ou lors d'un reset
                     pass
                 else:
                     self.plateau[oldY][oldX] = 0
-    
+
+            for y,x in zip(tabY,tabX): #zip permettant la répartition de chaque élément
+                self.plateau[y][x] = id
+
     def pièce(self,emplacement_initiale,id):
         """
         emplacement un tableau de coordonées x et y de chaque points de la position initiale de la pièce
         id la représentation de la pièce spécifique (permet au programme de différencier chaque pièce) bien sur chaque pièce doit avoir une id différente
+
+        -------------------------------------------------------------------------------------------------------------------------
+
+            paramètres : - tableau : - emplacement_initiale ; tableaux contenants les coordonnées des points de la pièce à initialiser
+                         - int : - id ; id (chiffre de 2 à 10) permettant de créer des pièces uniques  
         """    
         for i in emplacement_initiale:
-            if self.update_plateau(i[0],i[1],id,99,99) == False: #si un des 2 points est impossible le mouvement est bloqué
-                break
+            if self.update_plateau(i[0],i[1],id,99,99) == False:
+                print("Erreur lors de l'initialisation des pièces")
+                break #pièce mal placée lors de la création du jeu
             else:
                 pass
 
