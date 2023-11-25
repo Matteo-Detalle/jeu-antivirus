@@ -161,33 +161,34 @@ class Image:
         self.piece_verte_image = pygame.image.load("assets/verte.png")
         self.piece_bleu_image = pygame.image.load("assets/bleu.png")
         self.piece_violette2_image = pygame.image.load("assets/violet2.png")
+        self.piece_bleu2_image = pygame.image.load("assets/bleu2.png")
 
         self.recommencer_image = pygame.image.load("assets/Recommencer.png")
-        
-     
 
 class Button:
-	def __init__(self, x, y, image, scale):
-		x_image = image.get_width()
-		y_image = image.get_height()
-		self.image = pygame.transform.scale(image, (int(x_image * scale), int(y_image * scale)))
-		self.rect = self.image.get_rect()
-		self.rect.topleft = (x, y)
-		self.clicked = False
+    def __init__(self, x, y, image, scale):
+        x_image = image.get_width()
+        y_image = image.get_height()
+        self.image = pygame.transform.scale(image, (int(x_image * scale), int(y_image * scale)))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.clicked = False
+        self.son = pygame.mixer.Sound('assets/button_pushed.mp3')
 
-	def pressed(self):
-		action = False
-		pos = pygame.mouse.get_pos()
+    def pressed(self):
+        action = False
+        pos = pygame.mouse.get_pos()
 
-		if self.rect.collidepoint(pos):
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False: #vérifie l'état du clique et que c'est bien que le clique gauche
-				self.clicked = True
-				action = True
-				
-		if pygame.mouse.get_pressed()[0] == 0:
-			self.clicked = False
-			
-		return action
-	
-	def draw(self,surface):
-		surface.blit(self.image, (self.rect.x, self.rect.y))
+        if self.rect.collidepoint(pos):
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                self.clicked = True
+                action = True
+                self.son.play()
+
+        if pygame.mouse.get_pressed()[0] == 0:
+            self.clicked = False
+
+        return action
+
+    def draw(self, surface):
+        surface.blit(self.image, (self.rect.x, self.rect.y))

@@ -15,7 +15,7 @@ menu_explication = False
 menu_jouer = False
 niveau_actuel = 0
 
-niveau1_class, niveau2_class, niveau3_class, niveau4_class, niveau5_class, niveau6_class, niveau7_class, niveau8_class, niveau9_class = Niveau() , Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau()
+niveau1_class, niveau2_class, niveau3_class, niveau4_class, niveau5_class, niveau6_class, niveau7_class, niveau8_class =  Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau(), Niveau()
 
 images = Image()
 
@@ -31,7 +31,6 @@ niveau5_button = Button(450,400,images.niveau5_image,1)
 niveau6_button = Button(600,400,images.niveau6_image,1)
 niveau7_button = Button(750,400,images.niveau7_image,1)
 niveau8_button = Button(900,400,images.niveau8_image,1)
-niveau9_button = Button(675,600,images.niveau9_image,1)
 
 fleche_upleft_button = Button(1250,650,images.fleche_upleft_image,1)
 fleche_upright_button = Button(1350,650,images.fleche_upright_image,1)
@@ -44,6 +43,7 @@ niveau1_first_launch = True
 niveau2_first_launch = True
 niveau3_first_launch = True
 niveau4_first_launch = True
+niveau5_first_launch = True
 
 font = pygame.font.Font(None, 36)
 echap_text = font.render("Appuyez sur Echap pour revenir en arrière",True,(255,255,255))
@@ -103,7 +103,6 @@ def menu_jouer_fonction():
     niveau6_button.draw(screen)
     niveau7_button.draw(screen)
     niveau8_button.draw(screen)
-    niveau9_button.draw(screen)
 
     if niveau1_button.pressed():
         menu_jouer,niveau_actuel = False, 1
@@ -121,8 +120,6 @@ def menu_jouer_fonction():
         menu_jouer,niveau_actuel = False, 7
     if niveau8_button.pressed():
         menu_jouer,niveau_actuel = False, 8
-    if niveau9_button.pressed():
-        menu_jouer,niveau_actuel = False, 9
         
     screen.blit(echap_text,(500,800))
 
@@ -198,6 +195,22 @@ def niveau4_fonction(direction):
             position_piece_rose = new_position
         elif pièce_selectionnée == position_piece_bleu:
             position_piece_bleu = new_position
+        pièce_selectionnée = new_position
+
+def niveau5_fonction(direction):
+    global pièce_selectionnée , rect_pièce_selectionnée , pièce_id , liste_id , position_piece_diagonale , position_piece_violette  ,position_piece_bleu2 , niveau_actuel , menu_jouer ,  niveau5_first_launch
+    if niveau5_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == "GG" and pièce_selectionnée == position_piece_diagonale:
+        niveau_actuel , menu_jouer,  niveau5_first_launch = 0 , True , True
+    elif niveau5_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction) == False:
+        pass    
+    else:
+        new_position = niveau5_class.mouvement(pièce_selectionnée,rect_pièce_selectionnée,pièce_id,liste_id,direction)
+        if pièce_selectionnée == position_piece_diagonale:
+            position_piece_diagonale = new_position
+        elif pièce_selectionnée == position_piece_violette2:
+            position_piece_violette = new_position
+        elif pièce_selectionnée == position_piece_bleu:
+            position_piece_bleu2 = new_position
         pièce_selectionnée = new_position
 
 while running:
@@ -634,6 +647,111 @@ while running:
    
     elif niveau_actuel == 5:
         screen.blit(images.Plateau_image,(0,0))
+
+        if niveau5_first_launch == True:
+            niveau5_class.plateau = [[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0]]
+            position_piece_bleu2 = niveau5_class.emplacement([(0,0),(0,2),(0,4)]) #emplacement d'origine (y,x)
+            position_piece_violette = niveau5_class.emplacement([(2,2),(2,4),(4,4)])
+            position_piece_diagonale = niveau5_class.emplacement([(4,0),(5,1)])
+            position_piece_non_jouable = niveau5_class.emplacement([(3,5)])
+
+            rect_piece_bleu2 = images.piece_bleu2_image.get_rect()
+            rect_piece_bleu2.topleft = (465,60) #465 + x*105 et 60 + y*105 du point en haut à gauche
+
+            rect_piece_violette = images.piece_violette_image.get_rect()
+            rect_piece_violette.topleft = (675,280)
+
+            rect_piece_diagonale = images.piece_diagonale_image.get_rect()
+            rect_piece_diagonale.topleft = (465,480)
+            
+            niveau5_class.update_plateau([0,0,0],[0,2,4],3,[99,99,99],[99,99,99]) #initialisation de la pièce bleu2 dans la plateau
+            niveau5_class.update_plateau([4,5],[0,1],2,[99,99],[99,99]) #initialisation de la pièce diagonale dans le plateau
+            niveau5_class.update_plateau([2,2,4],[2,4,4],4,[99,99,99],[99,99,99]) #initialisation de la pièce violette dans le plateau
+            niveau5_class.update_plateau([3],[5],1,[99],[99]) #initialisation de la pièce non jouable dans le plateau
+
+            piece_selectionnée_text = font.render("Pas de Pièce sélectionnée",True,(255,255,255))
+            piece_rouge_text = font.render("Pièce rouge sélectionnée",True,(255,255,255))
+            piece_violette_text = font.render("Pièce violette sélectionnée",True,(255,255,255))
+            piece_bleu2_text = font.render("Pièce bleu selectionée",True,(255,255,255))
+
+            pièce_selectionnée = False
+            rect_pièce_selectionnée = False
+            pièce_id = False
+            liste_id = False
+
+            niveau5_first_launch = False
+        
+        screen.blit(images.piece_diagonale_image,rect_piece_diagonale.topleft)
+        screen.blit(images.piece_violette_image, rect_piece_violette.topleft)
+        screen.blit(images.piece_bleu2_image, rect_piece_bleu2)
+        screen.blit(images.piece_non_jouable_image,(990,375))
+        screen.blit(piece_selectionnée_text,(70,500))
+
+        fleche_upleft_button.draw(screen)
+        fleche_upright_button.draw(screen)
+        fleche_downleft_button.draw(screen)
+        fleche_downright_button.draw(screen)
+
+        if fleche_upleft_button.pressed():
+            niveau5_fonction("upleft")
+        if fleche_upright_button.pressed():
+            niveau5_fonction("upright")
+        if fleche_downleft_button.pressed():
+            niveau5_fonction("downleft")
+        if fleche_downright_button.pressed():
+            niveau5_fonction("downright")
+        
+        recommencer_button.draw(screen)
+        if recommencer_button.pressed():
+            niveau5_first_launch = True
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.display.set_caption("Anti-virus Menu")
+                    niveau_actuel , menu_jouer , niveau5_first_launch = 0 , True , True
+                
+                if event.key == pygame.K_a:
+                    niveau5_fonction("upleft")
+                if event.key == pygame.K_s:
+                    niveau5_fonction("downright")
+                if event.key == pygame.K_z:
+                    niveau5_fonction("upright")
+                if event.key == pygame.K_q:
+                    niveau5_fonction("downleft")
+
+            if event.type == pygame.MOUSEBUTTONDOWN:  
+                if event.button == 1:  #vérifie si clique gauche
+                    pos = pygame.mouse.get_pos() 
+
+                    #vérifie sur quelle pièce le clique a été fait
+                    if rect_piece_violette.collidepoint(pos):
+                        pièce_selectionnée = position_piece_violette
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 4
+                        liste_id.remove(4)
+                        rect_pièce_selectionnée = rect_piece_violette
+                        piece_selectionnée_text = piece_violette_text
+
+                    elif rect_piece_diagonale.collidepoint(pos):
+                        pièce_selectionnée = position_piece_diagonale
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 2
+                        liste_id.remove(2)
+                        rect_pièce_selectionnée = rect_piece_diagonale
+                        piece_selectionnée_text = piece_rouge_text
+                
+                    elif rect_piece_bleu2.collidepoint(pos):
+                        pièce_selectionnée = position_piece_bleu2
+                        liste_id = [2,3,4,5,6,7,8,9]
+                        pièce_id = 3
+                        liste_id.remove(3)
+                        rect_pièce_selectionnée = rect_piece_bleu2
+                        piece_selectionnée_text = piece_bleu2_text
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -672,19 +790,6 @@ while running:
                     niveau_actuel , menu_jouer = 0 , True
     
     elif niveau_actuel == 8:
-        screen.blit(images.Plateau_image,(0,0))
-        
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.display.set_caption("Anti-virus Menu")
-                    niveau_actuel , menu_jouer = 0 , True
-    
-    elif niveau_actuel == 9:
         screen.blit(images.Plateau_image,(0,0))
         
         for event in pygame.event.get():
