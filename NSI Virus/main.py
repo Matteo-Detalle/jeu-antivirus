@@ -19,20 +19,20 @@ niveau1_class, niveau2_class, niveau3_class, niveau4_class, niveau5_class, nivea
 
 images = Image()
 
-Regle_button = Button(600,300,images.boutton_regle_image,1)
-Quitter_button = Button(600,550,images.boutton_quitter_image,1)
-Jouer_button = Button(600,50,images.boutton_jouer_image,1)
+Regle_button = Button(600,350,images.boutton_regle_image,1)
+Quitter_button = Button(600,600,images.boutton_quitter_image,1)
+Jouer_button = Button(600,100,images.boutton_jouer_image,1)
 fleche_volume_gauche_button = Button(170,100,images.fleche_volume_gauche_image,1)
 fleche_volume_droite_button = Button(330,100,images.fleche_volume_droite_image,1)
 
-niveau1_button = Button(450,200,images.niveau1_image,1)
-niveau2_button = Button(600,200,images.niveau2_image,1)
-niveau3_button = Button(750,200,images.niveau3_image,1)
-niveau4_button = Button(900,200,images.niveau4_image,1)
-niveau5_button = Button(450,400,images.niveau5_image,1)
-niveau6_button = Button(600,400,images.niveau6_image,1)
-niveau7_button = Button(750,400,images.niveau7_image,1)
-niveau8_button = Button(900,400,images.niveau8_image,1)
+niveau1_button = Button(450,250,images.niveau1_image,1)
+niveau2_button = Button(600,250,images.niveau2_image,1)
+niveau3_button = Button(750,250,images.niveau3_image,1)
+niveau4_button = Button(900,250,images.niveau4_image,1)
+niveau5_button = Button(450,500,images.niveau5_image,1)
+niveau6_button = Button(600,500,images.niveau6_image,1)
+niveau7_button = Button(750,500,images.niveau7_image,1)
+niveau8_button = Button(900,500,images.niveau8_image,1)
 
 fleche_upleft_button = Button(1250,650,images.fleche_upleft_image,1)
 fleche_upright_button = Button(1350,650,images.fleche_upright_image,1)
@@ -55,10 +55,6 @@ pygame.mixer.music.load("assets/musique.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(volume)
 
-def update_volume_text():
-    global volume_text, volume, font
-    volume_text = font.render(f"Volume: {int(volume * 100)}", True, (255, 255, 255))
-
 def menu1_fonction():
     global menu1, menu_explication, menu_jouer , running , volume , Buttons , volume_text
 
@@ -78,7 +74,7 @@ def menu1_fonction():
             pygame.mixer.music.set_volume(volume)
             for i in Buttons:
                 i.son.set_volume(volume)
-            update_volume_text()
+            volume_text = font.render(f"Volume: {int(volume * 100)}", True, (255, 255, 255))
             
     
     if fleche_volume_droite_button.pressed():
@@ -89,7 +85,7 @@ def menu1_fonction():
             pygame.mixer.music.set_volume(volume)
             for i in Buttons:
                 i.son.set_volume(volume)
-            update_volume_text()
+            volume_text = font.render(f"Volume: {int(volume * 100)}", True, (255, 255, 255))
 
     if Quitter_button.pressed():
         pygame.quit()
