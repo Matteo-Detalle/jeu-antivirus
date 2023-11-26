@@ -162,8 +162,22 @@ class Image:
         self.piece_bleu_image = pygame.image.load("assets/bleu.png")
         self.piece_violette2_image = pygame.image.load("assets/violet2.png")
         self.piece_bleu2_image = pygame.image.load("assets/bleu2.png")
-
+        self.piece_orange_image = pygame.image.load("assets/orange.png")
+        self.piece_violette3_image = pygame.image.load("assets/violet3.png")
+        self.piece_jaune_image = pygame.image.load("assets/jaune.png")
         self.recommencer_image = pygame.image.load("assets/Recommencer.png")
+
+        self.mask_diagonale = pygame.mask.from_surface(self.piece_diagonale_image, 127)
+        self.mask_droite = pygame.mask.from_surface(self.piece_droite_image, 127)
+        self.mask_violette = pygame.mask.from_surface(self.piece_violette_image, 127) #utilisation de masque pour dégager les pixels transparents lors de la sélection
+        self.mask_rose = pygame.mask.from_surface(self.piece_rose_image, 127)
+        self.mask_verte = pygame.mask.from_surface(self.piece_verte_image, 127)
+        self.mask_bleu = pygame.mask.from_surface(self.piece_bleu_image, 127)
+        self.mask_violette2 = pygame.mask.from_surface(self.piece_violette2_image, 127)
+        self.mask_bleu2 = pygame.mask.from_surface(self.piece_bleu2_image, 127)
+        self.mask_orange = pygame.mask.from_surface(self.piece_orange_image, 127)
+        self.mask_violette3 = pygame.mask.from_surface(self.piece_violette3_image, 127)
+        self.mask_jaune = pygame.mask.from_surface(self.piece_jaune_image, 127)
 
 class Button:
     def __init__(self, x, y, image, scale):
