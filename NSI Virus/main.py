@@ -22,6 +22,8 @@ images = Image()
 Regle_button = Button(600,300,images.boutton_regle_image,1)
 Quitter_button = Button(600,550,images.boutton_quitter_image,1)
 Jouer_button = Button(600,50,images.boutton_jouer_image,1)
+fleche_volume_gauche_button = Button(170,100,images.fleche_volume_gauche_image,1)
+fleche_volume_droite_button = Button(330,100,images.fleche_volume_droite_image,1)
 
 niveau1_button = Button(450,200,images.niveau1_image,1)
 niveau2_button = Button(600,200,images.niveau2_image,1)
@@ -39,17 +41,55 @@ fleche_downright_button = Button(1350,750,images.fleche_downright_image,1)
 
 recommencer_button = Button(1200,150,images.recommencer_image,1)
 
+Buttons = [Regle_button,Quitter_button,Jouer_button,fleche_volume_gauche_button,fleche_volume_droite_button,niveau1_button,niveau2_button,niveau3_button,niveau4_button,niveau5_button,niveau6_button,niveau7_button,niveau8_button,fleche_upleft_button,fleche_upright_button,fleche_downleft_button,fleche_downright_button]
+
 niveau1_first_launch,niveau2_first_launch,niveau3_first_launch,niveau4_first_launch,niveau5_first_launch,niveau6_first_launch,niveau7_first_launch,niveau8_first_launch = True,True,True,True,True,True,True,True
 
 font = pygame.font.Font(None, 36)
 echap_text = font.render("Appuyez sur Echap pour revenir en arrière",True,(255,255,255))
 
+volume = 0.5
+volume_text = font.render(f"Volume: {int(volume * 100)}", True, (255, 255, 255))
+
+pygame.mixer.music.load("assets/musique.mp3")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(volume)
+
+def update_volume_text():
+    global volume_text, volume, font
+    volume_text = font.render(f"Volume: {int(volume * 100)}", True, (255, 255, 255))
+
 def menu1_fonction():
-    global menu1, menu_explication, menu_jouer , running
+    global menu1, menu_explication, menu_jouer , running , volume , Buttons , volume_text
 
     Regle_button.draw(screen)
     Quitter_button.draw(screen)
     Jouer_button.draw(screen)
+    fleche_volume_gauche_button.draw(screen)
+    fleche_volume_droite_button.draw(screen)
+
+    screen.blit(volume_text,(240,80))
+
+    if fleche_volume_gauche_button.pressed():
+        if volume - 0.1 < 0:
+            pass
+        else:
+            volume -= 0.1
+            pygame.mixer.music.set_volume(volume)
+            for i in Buttons:
+                i.son.set_volume(volume)
+            update_volume_text()
+            
+    
+    if fleche_volume_droite_button.pressed():
+        if volume + 0.1 > 1:
+            pass
+        else:
+            volume += 0.1
+            pygame.mixer.music.set_volume(volume)
+            for i in Buttons:
+                i.son.set_volume(volume)
+            update_volume_text()
 
     if Quitter_button.pressed():
         pygame.quit()

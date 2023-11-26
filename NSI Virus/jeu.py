@@ -135,6 +135,8 @@ class Image:
         self.boutton_regle_image = pygame.image.load("assets/Regle.png")
         self.boutton_quitter_image = pygame.image.load("assets/Quitter.png")
         self.boutton_jouer_image = pygame.image.load("assets/Jouer.png")
+        self.fleche_volume_gauche_image = pygame.image.load("assets/fleche_gauche.png")
+        self.fleche_volume_droite_image = pygame.image.load("assets/fleche_droite.png")
 
         self.fleche_upleft_image = pygame.image.load("assets/fleche_upleft.png")
         self.fleche_upright_image = pygame.image.load("assets/fleche_upright.png")
